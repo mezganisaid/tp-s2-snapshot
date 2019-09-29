@@ -1,0 +1,80 @@
+
+<div class="container mt-5">
+
+
+<div class="table-responsive">        
+  <table class="table table-hover" *ngIf="allInfo">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>country</th>
+        <th >adress</th>
+        <th >profil</th>
+        <th>ced</th>
+        <th>date insertion</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+
+
+      <tr *ngFor="let data of allInfo | paginate: { itemsPerPage: 4, currentPage: cnt}">
+        <td>{{data.id}}</td>
+        <td [ngStyle]="{'color':data.name === 'Said' ? 'green' : 'gray'}">
+            {{data.name}}
+        </td>
+        <td class="text-center" [ngClass]="{'text-danger':data.country === 'Maroc', 'text-primary':data.country === 'France'}" >
+        	{{data.country}}
+        </td>
+        <td>{{data.adress}}</td>
+        <td>{{data.profil}}</td>
+        <td>{{data.ced}}</td>
+        <td>{{data.datec}}</td>
+        <td>
+        	<a title="{{data.id}}" routerLink="/page4/{{data.id}}" class="btn btn-xs btn-info"> 
+        		<i class="fa fa-eye"></i>
+        	</a>
+        	<a title="{{data.id}}" type="button" class="btn btn-danger" data-toggle="modal" [attr.data-target]="'#modal'+data.id"> 
+        		<i class="fa fa-user"></i>
+        	</a>
+				<!-- The Modal -->
+				<div class="modal fade" id="modal{{data.id}}" tabindex="-1" role="dialog" [attr.aria-labelledby]="'modalLabel'+data.id">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h4 class="modal-title text-left">Details {{data.name}}</h4>
+				        <button type="button" class="close text-danger text-right" data-dismiss="modal">&times;</button>
+				      </div>
+				      <div class="modal-body">
+				      	<ul>
+				      	 <li>{{data.id}}</li>
+				      	 <li>{{data.name}}</li>
+				      	 <li>{{data.country}}</li>
+				      	 <li>{{data.adress}}</li>
+				      	 <li>{{data.profil}}</li>
+				      	 <li>{{data.ced}}</li>
+				      	 <li>{{data.datec}}</li>
+				      	 <li>{{data.desc}}</li>
+				      	</ul>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<!-- fin The Modal -->
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+<div class="pull-right">
+   <pagination-controls 
+        (pageChange)="cnt = $event"
+		responsive="true"
+		previousLabel="Précédent"
+		nextLabel="Suivant"
+	></pagination-controls>
+</div>
+
+</div>
